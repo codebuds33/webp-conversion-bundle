@@ -44,7 +44,7 @@ This also works with vich_uploader assets and liip_imagine filters :
 
 ```html
 <picture>
-    <source srcset="{{ vich_uploader_asset(asset, 'imageFile') | set_webp_extension | imagine_filter(filter) }}" type="image/webp">
+    <source srcset="{{ vich_uploader_asset(asset, 'imageFile') | cb_webp | set_webp_extension | imagine_filter(filter) }}" type="image/webp">
     <source srcset="{{ vich_uploader_asset(asset, 'imageFile') | imagine_filter(filter) }}">
     <img src="{{ vich_uploader_asset(asset, 'imageFile') | imagine_filter(filter) }}">
 </picture>
