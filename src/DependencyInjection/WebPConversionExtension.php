@@ -24,5 +24,8 @@ class WebPConversionExtension extends Extension
 
         $definition = $container->getDefinition("codebuds_webp_conversion_command.webp_conversion_command");
         $definition->setArgument(0, $config['quality']);
+
+        $definition = $container->getDefinition("codebuds_webp_conversion_twig_extension.webp_conversion_twig_extension");
+        $definition->setArgument(0, $config['quality']);
     }
 }
