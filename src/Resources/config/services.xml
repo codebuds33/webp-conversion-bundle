@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="codebuds_webp_conversion_command.webp_conversion_command"
+                 class="CodeBuds\WebPConversionBundle\Command\WebPConversionCommand" public="true">
+            <argument>%webp_conversion.quality%</argument>
+            <argument>%kernel.project_dir%</argument>
+            <tag name="console.command" command="codebuds:webp:convert" alias="webp:conv"/>
+        </service>
+        <service id="CodeBuds\WebPConversionBundle\Command\WebPConversionCommand"
+                 alias="codebuds_webp_conversion_command.webp_conversion_command" public="true"/>
+    </services>
+</container>
