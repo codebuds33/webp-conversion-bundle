@@ -10,7 +10,7 @@ This will allow you to pass a directory in which you want all the jpeg, png, gif
 
 It has multiple parameters :
 
-- `--create` without this the directories will be checked but the final images will not be created.
+- `--create` without this the directories will be checked, but the final images will not be created.
 - `--quality` set the quality for the webp images (80 by default)
 - `--force` recreate existing webP images (false by default)
 - `--suffix` add a suffix to the created webp image names
@@ -21,4 +21,4 @@ Example:
 php bin/console codebuds:webp:convert --create --quality=90 --suffix=_q90 public/images
 ```
 
-if the public/images contains image.jpeg, after the command it will contain amge_q90.webp.
+if the public/images contains image.jpeg, after the command it will contain image_q90.webp.
