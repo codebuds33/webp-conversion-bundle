@@ -22,10 +22,13 @@ class WebPConversionExtension extends Extension
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        $definition = $container->getDefinition("codebuds_webp_conversion_command.webp_conversion_command");
+        $definition = $container->getDefinition("codebuds_webp_conversion.command");
         $definition->setArgument(0, $config['quality']);
 
-        $definition = $container->getDefinition("codebuds_webp_conversion_twig_extension.webp_conversion_twig_extension");
+        $definition = $container->getDefinition("codebuds_webp_conversion.twig_extension");
+        $definition->setArgument(0, $config['quality']);
+
+        $definition = $container->getDefinition("codebuds_webp_conversion.webp_conversion");
         $definition->setArgument(0, $config['quality']);
     }
 }
