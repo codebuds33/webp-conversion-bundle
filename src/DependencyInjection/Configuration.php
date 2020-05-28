@@ -15,6 +15,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode("quality")->defaultValue(80)->end()
+                ->scalarNode("upload_path")->defaultValue('/public/images')->end()
             ->end();
 
         return $treeBuilder;

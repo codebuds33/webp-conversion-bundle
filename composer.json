@@ -14,7 +14,9 @@
     "codebuds/webp-converter": "^0.2.2",
     "symfony/console": "5.0.*",
     "symfony/stopwatch": "5.0.*",
-    "symfony/finder": "5.0.*"
+    "symfony/finder": "5.0.*",
+    "symfony/http-foundation": "5.0.*",
+    "symfony/routing": "5.0.*"
   },
   "require-dev": {
     "symfony/framework-bundle": "^5.0"

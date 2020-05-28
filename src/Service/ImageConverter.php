@@ -21,7 +21,7 @@ class ImageConverter
         $options['saveFile'] = $saveFile;
         $options['force'] = $force;
 
-        $webPInfo = WebPConverter::createWebPImage($image->getFile(), $options);
+        $webPInfo = WebPConverter::createWebPImage($image->getImageFile(), $options);
 
         if (!$saveFile) {
             return $webPInfo;
@@ -37,16 +37,16 @@ class ImageConverter
      */
     public function convertedImageExists(Image $image): bool
     {
-        return WebPConverter::convertedWebPImageExists($image->getFile(), $this->createOptionsArray($image));
+        return (file_exists($image->getConvertedFullPath()));
     }
 
     private function createOptionsArray(Image $image): array
     {
         return [
-            'quality' => $image->getSettings()->getQuality(),
-            'savePath' => $image->getSettings()->getConvertedPath(),
-            'filename' => $image->getSettings()->getConvertedFilename(),
-            'filenameSuffix' => $image->getSettings()->getConvertedFilenameSuffix()
+            'quality' => $image->getQuality(),
+            'savePath' => $image->getConvertedPath(),
+            'filename' => $image->getConvertedFilename(),
+            'filenameSuffix' => $image->getConvertedFilenameSuffix()
         ];
     }
 }
