@@ -22,7 +22,6 @@ class ImageUploadHelper
 
   /**
    * @param UploadedFile $uploadedFile
-   * @return File
    * @throws Exception
    */
   public function uploadAction(UploadedFile $uploadedFile): File
