@@ -3,31 +3,27 @@
 namespace CodeBuds\WebPConversionBundle\Service;
 
 use CodeBuds\WebPConversionBundle\Model\Image;
+use CodeBuds\WebPConversionBundle\Model\WebPInformation;
 use CodeBuds\WebPConverter\WebPConverter;
 use Exception;
+use Symfony\Component\HttpFoundation\File\File;
 
 class ImageConverter
 {
     /**
-     * @param Image $image
+     * @param $image
      * @param bool $saveFile
      * @param bool $force
      * @return array|mixed
      * @throws Exception
      */
-    public function convert(Image $image, bool $force = false, bool $saveFile = true)
+    public function convert($image, bool $force = false, bool $saveFile = true)
     {
         $options = $this->createOptionsArray($image);
         $options['saveFile'] = $saveFile;
         $options['force'] = $force;
 
-        $webPInfo = WebPConverter::createWebPImage($image->getImageFile(), $options);
-
-        if (!$saveFile) {
-            return $webPInfo;
-        }
-
-        return $webPInfo['path'];
+        return new WebPInformation(WebPConverter::createWebPImage($image->getImageFile(), $options));
     }
 
     /**
@@ -40,7 +36,11 @@ class ImageConverter
         return (file_exists($image->getConvertedFullPath()));
     }
 
-    private function createOptionsArray(Image $image): array
+    /**
+     * @param $image
+     * @return array
+     */
+    private function createOptionsArray($image): array
     {
         return [
             'quality' => $image->getQuality(),
