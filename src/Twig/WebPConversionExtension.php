@@ -34,7 +34,8 @@ class WebPConversionExtension extends AbstractExtension
      */
     public function setWebpExtension($html)
     {
-        $fullFilePath = "{$this->projectDir}/public{$html}";
+        $imagePath = parse_url($html, PHP_URL_PATH);
+        $fullFilePath = "{$this->projectDir}/public{$imagePath}";
         $webPPath = WebPConverter::convertedWebPImagePath($fullFilePath);
         $options = [
             'saveFile' => true,
