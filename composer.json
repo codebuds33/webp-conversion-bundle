@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": "^7.4",
+    "php": "^7.4 || ^8.0",
     "codebuds/webp-converter": "^0.2.6",
     "symfony/console": "^5.0",
     "symfony/stopwatch": "^5.0",
