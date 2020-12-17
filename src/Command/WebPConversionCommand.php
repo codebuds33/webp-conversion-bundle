@@ -2,6 +2,7 @@
 
 namespace CodeBuds\WebPConversionBundle\Command;
 
+use CodeBuds\WebPConverter\WebPConverter;
 use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -12,7 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Stopwatch\Stopwatch;
-use CodeBuds\WebPConverter\WebPConverter;
 
 class WebPConversionCommand extends Command
 {
@@ -62,7 +62,7 @@ class WebPConversionCommand extends Command
         $images = [];
 
         array_walk($directories, function ($directory) use ($io, &$images) {
-            $fullPath =  $directory[0] === '/' ?: "{$this->projectDir}/{$directory}";
+            $fullPath = $directory[0] === '/' ?: "{$this->projectDir}/{$directory}";
             $images = $this->scanDirs($fullPath);
         });
 
@@ -95,7 +95,7 @@ class WebPConversionCommand extends Command
         }
 
         $event = $stopwatch->stop('WebP_transforms');
-        $io->text("Time : " . (string) $event);
+        $io->text("Time : " . (string)$event);
 
         return 0;
     }

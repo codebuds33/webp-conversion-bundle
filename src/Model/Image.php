@@ -11,22 +11,22 @@ class Image
 {
     use ConvertibleImageTrait;
 
-  /**
-   * Image constructor.
-   * @param File $file
-   * @throws Exception
-   */
+    /**
+     * Image constructor.
+     * @param File|null $file
+     * @throws Exception
+     */
     public function __construct(?File $file = null)
     {
-      if($file) {
-        $this->setOriginalInformationFromFile($file);
-      } else {
-        $this->originalFilename = null;
-        $this->originalPath = null;
-        $this->originalFileType = null;
-        $this->originalExtension = null;
-      }
+        if ($file) {
+            $this->setOriginalInformationFromFile($file);
+        } else {
+            $this->originalFilename = null;
+            $this->originalPath = null;
+            $this->originalFileType = null;
+            $this->originalExtension = null;
+        }
 
-      return $this;
+        return $this;
     }
 }

@@ -6,7 +6,6 @@ use CodeBuds\WebPConversionBundle\Model\Image;
 use CodeBuds\WebPConversionBundle\Model\WebPInformation;
 use CodeBuds\WebPConverter\WebPConverter;
 use Exception;
-use Symfony\Component\HttpFoundation\File\File;
 
 class ImageConverter
 {

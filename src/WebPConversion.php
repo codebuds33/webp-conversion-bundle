@@ -28,11 +28,11 @@ class WebPConversion
     {
         $image = new Image($imageFile);
 
-        if($image->getQuality() === null){
+        if ($image->getQuality() === null) {
             $image->setQuality($this->quality);
         }
 
-        if($this->imageConverter->convertedImageExists($image) && $force){
+        if ($this->imageConverter->convertedImageExists($image) && $force) {
             return $this->imageConverter->convert($image, true);
         }
         return $this->imageConverter->convert($image);

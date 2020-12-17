@@ -3,10 +3,6 @@
 namespace CodeBuds\WebPConversionBundle\Model;
 
 
-use CodeBuds\WebPConversionBundle\Traits\ConvertibleImageTrait;
-use Exception;
-use Symfony\Component\HttpFoundation\File\File;
-
 class WebPInformation
 {
     private int $quality;

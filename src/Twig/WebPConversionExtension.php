@@ -1,4 +1,5 @@
 <?php
+
 namespace CodeBuds\WebPConversionBundle\Twig;
 
 
@@ -44,6 +45,6 @@ class WebPConversionExtension extends AbstractExtension
         if (!file_exists($webPPath)) {
             WebPConverter::createWebPImage($fullFilePath, $options);
         }
-        return explode("{$this->projectDir}/public", $webPPath,2)[1];
+        return explode("{$this->projectDir}/public", $webPPath, 2)[1];
     }
 }
