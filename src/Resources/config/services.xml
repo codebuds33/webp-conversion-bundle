@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					 xmlns="http://symfony.com/schema/dic/services"
+					 xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <services>
-        <!--Command-->
-        <service id="codebuds_webp_conversion.command"
-                 class="CodeBuds\WebPConversionBundle\Command\WebPConversionCommand" public="true">
-            <argument>%webp_conversion.quality%</argument>
-            <argument>%kernel.project_dir%</argument>
-            <tag name="console.command" command="codebuds:webp:convert" alias="webp:conv"/>
-        </service>
-        <service id="CodeBuds\WebPConversionBundle\Command\WebPConversionCommand"
-                 alias="codebuds_webp_conversion.command" public="true"/>
+	<services>
+		<!--Command-->
+		<service id="codebuds_webp_conversion.command"
+						 class="CodeBuds\WebPConversionBundle\Command\WebPConversionCommand" public="true">
+			<argument>%webp_conversion.quality%</argument>
+			<argument>%kernel.project_dir%</argument>
+			<tag name="console.command" command="codebuds:webp:convert" alias="webp:conv"/>
+		</service>
+		<service id="CodeBuds\WebPConversionBundle\Command\WebPConversionCommand"
+						 alias="codebuds_webp_conversion.command" public="true"/>
 
-        <!--Twig Extension-->
-        <service id="codebuds_webp_conversion.twig_extension"
-                 class="CodeBuds\WebPConversionBundle\Twig\WebPConversionExtension" public="true">
-            <argument>%webp_conversion.quality%</argument>
-            <argument>%kernel.project_dir%</argument>
-            <tag name="twig.extension" alias="codebuds"/>
-        </service>
-        <service id="CodeBuds\WebPConversionBundle\Twig\WebPConversionExtension"
-                 alias="codebuds_webp_conversion.twig_extension" public="true"/>
+		<!--Twig Extension-->
+		<service id="codebuds_webp_conversion.twig_extension"
+						 class="CodeBuds\WebPConversionBundle\Twig\WebPConversionExtension" public="true">
+			<argument>%webp_conversion.quality%</argument>
+			<argument>%kernel.project_dir%</argument>
+			<tag name="twig.extension" alias="codebuds"/>
+		</service>
+		<service id="CodeBuds\WebPConversionBundle\Twig\WebPConversionExtension"
+						 alias="codebuds_webp_conversion.twig_extension" public="true"/>
 
-        <!--Bundle Extension-->
-        <service id="codebuds_webp_conversion.webp_conversion"
-                 class="CodeBuds\WebPConversionBundle\WebPConversion" public="true">
-            <argument>%webp_conversion.quality%</argument>
-            <argument type="service" id="codebuds_webp_conversion.service.image_converter"/>
-        </service>
-        <service id="CodeBuds\WebPConversionBundle\Twig\WebPConversionExtension"
-                 alias="codebuds_webp_conversion.twig_extension" public="true"/>
+		<!--Bundle Extension-->
+		<service id="codebuds_webp_conversion.webp_conversion"
+						 class="CodeBuds\WebPConversionBundle\WebPConversion" public="true">
+			<argument>%webp_conversion.quality%</argument>
+			<argument type="service" id="codebuds_webp_conversion.service.image_converter"/>
+		</service>
+		<service id="CodeBuds\WebPConversionBundle\Twig\WebPConversionExtension"
+						 alias="codebuds_webp_conversion.twig_extension" public="true"/>
 
-        <!--Services-->
-        <service id="codebuds_webp_conversion.service.image_converter"
-                 class="CodeBuds\WebPConversionBundle\Service\ImageConverter" public="true"/>
-        <service id="CodeBuds\WebPConversionBundle\Service\ImageConverter"
-                 alias="codebuds_webp_conversion.service.image_converter" public="true"/>
+		<!--Services-->
+		<service id="codebuds_webp_conversion.service.image_converter"
+						 class="CodeBuds\WebPConversionBundle\Service\ImageConverter" public="true"/>
+		<service id="CodeBuds\WebPConversionBundle\Service\ImageConverter"
+						 alias="codebuds_webp_conversion.service.image_converter" public="true"/>
 
-        <service id="codebuds_webp_conversion.service.upload_helper"
-                 class="CodeBuds\WebPConversionBundle\Service\ImageUploadHelper" public="true">
-            <argument>%webp_conversion.upload_path%</argument>
-            <argument>%kernel.project_dir%</argument>
-        </service>
-        <service id="CodeBuds\WebPConversionBundle\Service\ImageUploadHelper"
-                 alias="codebuds_webp_conversion.service.upload_helper" public="true"/>
+		<service id="codebuds_webp_conversion.service.upload_helper"
+						 class="CodeBuds\WebPConversionBundle\Service\ImageUploadHelper" public="true">
+			<argument>%webp_conversion.upload_path%</argument>
+			<argument>%kernel.project_dir%</argument>
+		</service>
+		<service id="CodeBuds\WebPConversionBundle\Service\ImageUploadHelper"
+						 alias="codebuds_webp_conversion.service.upload_helper" public="true"/>
 
-        <!--Traits-->
-        <service id="codebuds_webp_conversion.trait.convertible_image"
-                 class="CodeBuds\WebPConversionBundle\Traits\ConvertibleImageTrait" public="true"/>
-        <service id="CodeBuds\WebPConversionBundle\Traits\ConvertibleImageTrait"
-                 alias="codebuds_webp_conversion.trait.convertible_image" public="true"/>
-    </services>
+		<!--Traits-->
+		<service id="codebuds_webp_conversion.trait.convertible_image"
+						 class="CodeBuds\WebPConversionBundle\Traits\ConvertibleImageTrait" public="true"/>
+		<service id="CodeBuds\WebPConversionBundle\Traits\ConvertibleImageTrait"
+						 alias="codebuds_webp_conversion.trait.convertible_image" public="true"/>
+	</services>
 </container>

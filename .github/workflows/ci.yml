@@ -1,0 +1,48 @@
+name: CI-coverage
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: 7.4
+          php_extensions: xdebug gd
+
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@v3
+        with:
+          version: 9.5.0
+          php_version: 7.4
+          php_extensions: xdebug gd
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml.dist
+          args: --coverage-clover coverage.xml
+        env:
+          XDEBUG_MODE: coverage
+
+
+      - name: Generate PHPUnit coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.0
+        with:
+          report: 'coverage.xml'
+          coverage_badge_path: 'plugin/.coverage/badge.svg'
+
+      - name: Commit PHPUnit coverage badge
+        uses: EndBug/add-and-commit@v7
+        with:
+          add: 'badge.svg'
+          cwd: './plugin/.coverage'
+          message: 'Update PHPUnit coverage badge'

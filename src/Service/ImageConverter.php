@@ -9,43 +9,33 @@ use Exception;
 
 class ImageConverter
 {
-    /**
-     * @param $image
-     * @param bool $saveFile
-     * @param bool $force
-     * @return array|mixed
-     * @throws Exception
-     */
-    public function convert($image, bool $force = false, bool $saveFile = true)
-    {
-        $options = $this->createOptionsArray($image);
-        $options['saveFile'] = $saveFile;
-        $options['force'] = $force;
+	/**
+	 * @throws Exception
+	 */
+	public function convert($image, bool $force = false, bool $saveFile = true): WebPInformation
+	{
+		$options = $this->createOptionsArray($image);
+		$options['saveFile'] = $saveFile;
+		$options['force'] = $force;
 
-        return new WebPInformation(WebPConverter::createWebPImage($image->getImageFile(), $options));
-    }
+		return new WebPInformation(WebPConverter::createWebPImage($image->getImageFile(), $options));
+	}
 
-    /**
-     * @param Image $image
-     * @return bool
-     * @throws Exception
-     */
-    public function convertedImageExists(Image $image): bool
-    {
-        return (file_exists($image->getConvertedFullPath()));
-    }
+	private function createOptionsArray(Image $image): array
+	{
+		return [
+			'quality' => $image->getQuality(),
+			'savePath' => $image->getConvertedPath(),
+			'filename' => $image->getConvertedFilename(),
+			'filenameSuffix' => $image->getConvertedFilenameSuffix()
+		];
+	}
 
-    /**
-     * @param $image
-     * @return array
-     */
-    private function createOptionsArray($image): array
-    {
-        return [
-            'quality' => $image->getQuality(),
-            'savePath' => $image->getConvertedPath(),
-            'filename' => $image->getConvertedFilename(),
-            'filenameSuffix' => $image->getConvertedFilenameSuffix()
-        ];
-    }
+	/**
+	 * @throws Exception
+	 */
+	public function convertedImageExists(Image $image): bool
+	{
+		return (file_exists($image->getConvertedFullPath()));
+	}
 }

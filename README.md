@@ -1,3 +1,4 @@
+![Code Coverage Badge](./plugin/.coverage/badge.svg) 
 # WebP Conversion Command
 
 This bundle is here to make it easy to create webP images in a Symfony project.
