@@ -1,21 +1,30 @@
 <?php
 
+namespace CodeBuds\WebPConversionBundle\Tests;
+
 use CodeBuds\WebPConversionBundle\Command\WebPConversionCommand;
+use CodeBuds\WebPConversionBundle\Service\ImageConverter;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class Test extends KernelTestCase
 {
 	protected Application $application;
 
+	private ImageConverter $imageConverterService;
+
 	public function setUp(): void
 	{
-		$kernel = self::bootKernel();
+		$kernel = self::bootKernel(['test' => true]);
+		$container = self::$kernel->getContainer();
+		//$container = self::getContainer();
 		$this->application = new Application($kernel);
 		$this->application->add(new WebPConversionCommand(80, __DIR__));
 		$command = $this->application->find('codebuds:webp:convert');
 		$this->commandTester = new CommandTester($command);
+		$this->imageConverterService = $container->get(ImageConverter::class);
 	}
 
 	public function testCommand(): void
@@ -56,5 +65,12 @@ final class Test extends KernelTestCase
 	{
 		$path = __DIR__ . '/Data/' . $filename;
 		unlink($path);
+	}
+
+	public function testService(): void
+	{
+		$file = new UploadedFile(__DIR__ . '/Data/test.png', 'image/png', UPLOAD_ERR_OK, true);
+		$this->imageConverterService->convert($file);
+		$this->assertFileExists('kek');
 	}
 }

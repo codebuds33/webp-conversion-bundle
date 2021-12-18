@@ -1,1 +1,1 @@
-{"version":1,"defects":{"Test::testCommand":3},"times":{"Test::testCommand":0.147}}
+{"version":1,"defects":{"Test::testCommand":3,"CodeBuds\\WebPConversionBundle\\Tests\\Test::testService":4,"CodeBuds\\WebPConversionBundle\\Tests\\Test::testCommand":4},"times":{"Test::testCommand":0.278,"CodeBuds\\WebPConversionBundle\\Tests\\Test::testService":0.002,"CodeBuds\\WebPConversionBundle\\Tests\\Test::testCommand":0.077}}
