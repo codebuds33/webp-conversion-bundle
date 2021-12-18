@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="php" />
+      </PhpTestInterpreterSettings>
+    </CommandLine>
+    <TestRunner class="CodeBuds\WebPConversionBundle\Tests\Test" configuration_file="/srv/app/phpunit.xml.dist" file="$PROJECT_DIR$/src/Tests/Test.php" scope="Class" />
+    <method v="2" />
+  </configuration>
+</component>
