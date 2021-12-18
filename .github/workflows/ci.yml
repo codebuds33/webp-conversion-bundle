@@ -21,14 +21,14 @@ jobs:
       - name: composer
         uses: php-actions/composer@v6
         with:
-          php_version: 7.4
+          php_version: 8.0
           php_extensions: xdebug gd
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
           version: 9.5.0
-          php_version: 7.4
+          php_version: 8.0
           php_extensions: xdebug gd
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml.dist
