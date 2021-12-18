@@ -6,6 +6,8 @@ use CodeBuds\WebPConversionBundle\Model\Image;
 use CodeBuds\WebPConversionBundle\Model\WebPInformation;
 use CodeBuds\WebPConverter\WebPConverter;
 use Exception;
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
 
 class ImageConverter
 {
@@ -21,7 +23,8 @@ class ImageConverter
 		return new WebPInformation(WebPConverter::createWebPImage($image->getImageFile(), $options));
 	}
 
-	private function createOptionsArray(Image $image): array
+	#[Pure] #[ArrayShape(['quality' => "int|null", 'savePath' => "null|string", 'filename' => "null|string", 'filenameSuffix' => "null|string"])]
+    private function createOptionsArray(Image $image): array
 	{
 		return [
 			'quality' => $image->getQuality(),
