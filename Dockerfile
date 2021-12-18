@@ -34,7 +34,6 @@ RUN apk add --no-cache \
         su-exec \
         libxslt-dev \
         libgcrypt-dev \
-        wkhtmltopdf \
         bash
 
 #Configure, install and enable all php packages

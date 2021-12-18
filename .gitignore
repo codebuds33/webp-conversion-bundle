@@ -4,3 +4,4 @@ phpunit.xml
 /var/
 vendor
 .phpunit.result.cache
+docker-compose.override.yaml

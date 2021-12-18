@@ -18,6 +18,23 @@ services:
     volumes:
       - .:/srv/app
 
+  php8:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: php_dev
+      args:
+        PHP_VERSION: '8.0'
+    user: 1000:1500
+    networks:
+      - internal
+    working_dir: /srv/app
+    environment:
+      - PHP_IDE_CONFIG=serverName=Xdebug
+      - XDEBUG_CONFIG=discover_client_host=1 client_host=host.docker.internal
+    volumes:
+      - .:/srv/app
+
 networks:
   internal:
 
