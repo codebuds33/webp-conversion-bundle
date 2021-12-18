@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PHPUnit" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="php" />
+      </PhpTestInterpreterSettings>
+      <envs>
+        <env name="XDEBUG_MODE" value="coverage,debug" />
+      </envs>
+    </CommandLine>
+    <TestRunner class="CodeBuds\WebPConversionBundle\Tests\Test" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/src/Tests/Test.php" scope="XML" use_alternative_configuration_file="true" />
+    <method v="2" />
+  </configuration>
+</component>

@@ -11,199 +11,199 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait ConvertibleImageTrait
 {
-	/**
-	 * @Assert\File(
-	 *     mimeTypes = {"image/png", "image/jpeg", "image/bmp", "image/gif"},
-	 *     mimeTypesMessage = "Please upload a valid image (jpeg, png, bmp or gif)",
-	 * )
-	 */
-	private File $imageFile;
+    /**
+     * @Assert\File(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/bmp", "image/gif"},
+     *     mimeTypesMessage = "Please upload a valid image (jpeg, png, bmp or gif)",
+     * )
+     */
+    private File $imageFile;
 
-	/**
-	 * @ORM\Column(type="integer",  nullable=true)
-	 */
-	private ?int $quality;
+    /**
+     * @ORM\Column(type="integer",  nullable=true)
+     */
+    private ?int $quality = 80;
 
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private ?string $convertedPath;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $convertedPath;
 
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private ?string $convertedFilename;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $convertedFilename;
 
-	/**
-	 * @var string|null
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private ?string $convertedFilenameSuffix;
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $convertedFilenameSuffix = null;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private ?string $originalPath;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $originalPath;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private ?string $originalFilename;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $originalFilename;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private ?string $originalExtension;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $originalExtension;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private ?string $originalFileType;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $originalFileType;
 
-	/**
-	 * @return File
-	 */
-	public function getImageFile(): File
-	{
-		return new File($this->getOriginalFullPath());
-	}
+    /**
+     * @return File
+     */
+    public function getImageFile(): File
+    {
+        return new File($this->getOriginalFullPath());
+    }
 
-	/**
-	 * @param File $imageFile
-	 * @return ConvertibleImageTrait|Image
-	 */
-	public function setImageFile(File $imageFile): self
-	{
-		$this->imageFile = $imageFile;
+    /**
+     * @param File $imageFile
+     * @return ConvertibleImageTrait|Image
+     */
+    public function setImageFile(File $imageFile): self
+    {
+        $this->imageFile = $imageFile;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getQuality(): ?int
-	{
-		return $this->quality;
-	}
+    public function getOriginalFullPath(): string
+    {
+        return "{$this->originalPath}/{$this->originalFilename}.{$this->originalExtension}";
+    }
 
-	public function setQuality(?int $quality): self
-	{
-		$this->quality = $quality;
+    public function getQuality(): ?int
+    {
+        return $this->quality;
+    }
 
-		return $this;
-	}
+    public function setQuality(?int $quality): self
+    {
+        $this->quality = $quality;
 
-	public function getConvertedPath(): ?string
-	{
-		return $this->convertedPath;
-	}
+        return $this;
+    }
 
-	public function setConvertedPath(?string $convertedPath): self
-	{
-		$this->convertedPath = $convertedPath;
+    public function getConvertedPath(): ?string
+    {
+        return $this->convertedPath;
+    }
 
-		return $this;
-	}
+    public function setConvertedPath(?string $convertedPath): self
+    {
+        $this->convertedPath = $convertedPath;
 
-	public function getConvertedFilename(): ?string
-	{
-		return $this->convertedFilename;
-	}
+        return $this;
+    }
 
-	public function setConvertedFilename(?string $convertedFilename): self
-	{
-		$this->convertedFilename = $convertedFilename;
+    public function getConvertedFilename(): ?string
+    {
+        return $this->convertedFilename;
+    }
 
-		return $this;
-	}
+    public function setConvertedFilename(?string $convertedFilename): self
+    {
+        $this->convertedFilename = $convertedFilename;
 
-	public function getConvertedFilenameSuffix(): ?string
-	{
-		return $this->convertedFilenameSuffix;
-	}
+        return $this;
+    }
 
-	public function setConvertedFilenameSuffix(?string $convertedFilenameSuffix): self
-	{
-		$this->convertedFilenameSuffix = $convertedFilenameSuffix;
+    public function getOriginalPath(): ?string
+    {
+        return $this->originalPath;
+    }
 
-		return $this;
-	}
+    public function setOriginalPath(?string $originalPath): self
+    {
+        $this->originalPath = $originalPath;
 
-	public function getOriginalPath(): ?string
-	{
-		return $this->originalPath;
-	}
+        return $this;
+    }
 
-	public function setOriginalPath(?string $originalPath): self
-	{
-		$this->originalPath = $originalPath;
+    public function getOriginalFilename(): ?string
+    {
+        return $this->originalFilename;
+    }
 
-		return $this;
-	}
+    public function setOriginalFilename(?string $originalFilename): self
+    {
+        $this->originalFilename = $originalFilename;
 
-	public function getOriginalFilename(): ?string
-	{
-		return $this->originalFilename;
-	}
+        return $this;
+    }
 
-	public function setOriginalFilename(?string $originalFilename): self
-	{
-		$this->originalFilename = $originalFilename;
+    public function getOriginalExtension(): ?string
+    {
+        return $this->originalExtension;
+    }
 
-		return $this;
-	}
+    public function setOriginalExtension(?string $originalExtension): self
+    {
+        $this->originalExtension = $originalExtension;
 
-	public function getOriginalExtension(): ?string
-	{
-		return $this->originalExtension;
-	}
+        return $this;
+    }
 
-	public function setOriginalExtension(?string $originalExtension): self
-	{
-		$this->originalExtension = $originalExtension;
+    public function getOriginalFileType(): ?string
+    {
+        return $this->originalFileType;
+    }
 
-		return $this;
-	}
+    public function setOriginalFileType(?string $originalFileType): self
+    {
+        $this->originalFileType = $originalFileType;
 
-	public function getOriginalFileType(): ?string
-	{
-		return $this->originalFileType;
-	}
+        return $this;
+    }
 
-	public function setOriginalFileType(?string $originalFileType): self
-	{
-		$this->originalFileType = $originalFileType;
+    public function setOriginalInformationFromFile(File $file): self
+    {
+        $this->originalPath = $file->getPath();
+        $this->originalFilename = substr($file->getFilename(), 0, strrpos($file->getFilename(), '.'));
+        $this->originalExtension = $file->getExtension();
 
-		return $this;
-	}
+        $fileType = $file->guessExtension();
 
-	public function setOriginalInformationFromFile(File $file): self
-	{
-		$this->originalPath = $file->getPath();
-		$this->originalFilename = substr($file->getFilename(), 0, strrpos($file->getFilename(), '.'));
-		$this->originalExtension = $file->getExtension();
+        if ($fileType === null) {
+            throw new RuntimeException("Extension cannot be guessed");
+        }
 
-		$fileType = $file->guessExtension();
+        $this->originalFileType = $fileType;
 
-		if ($fileType === null) {
-			throw new RuntimeException("Extension cannot be guessed");
-		}
+        return $this;
+    }
 
-		$this->originalFileType = $fileType;
+    public function getOriginalFullFilename(): string
+    {
+        return "{$this->originalFilename}.{$this->originalExtension}";
+    }
 
-		return $this;
-	}
+    public function getConvertedFullPath(): string
+    {
+        return "{$this->convertedPath}/{$this->convertedFilename}{$this->getConvertedFilenameSuffix()}.webp";
+    }
 
-	public function getOriginalFullFilename(): string
-	{
-		return "{$this->originalFilename}.{$this->originalExtension}";
-	}
+    public function getConvertedFilenameSuffix(): ?string
+    {
+        return $this->convertedFilenameSuffix;
+    }
 
-	public function getOriginalFullPath(): string
-	{
-		return "{$this->originalPath}/{$this->originalFilename}.{$this->originalExtension}";
-	}
+    public function setConvertedFilenameSuffix(?string $convertedFilenameSuffix): self
+    {
+        $this->convertedFilenameSuffix = $convertedFilenameSuffix;
 
-	public function getConvertedFullPath(): string
-	{
-		return "{$this->convertedPath}/{$this->convertedFilename}{$this->getConvertedFilenameSuffix()}.webp";
-	}
+        return $this;
+    }
 }

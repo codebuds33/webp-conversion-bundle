@@ -3,6 +3,7 @@
 namespace CodeBuds\WebPConversionBundle;
 
 use CodeBuds\WebPConversionBundle\Model\Image;
+use CodeBuds\WebPConversionBundle\Model\WebPInformation;
 use CodeBuds\WebPConversionBundle\Service\ImageConverter;
 use Exception;
 use Symfony\Component\HttpFoundation\File\File;
@@ -19,12 +20,9 @@ class WebPConversion
 	}
 
 	/**
-	 * @param File $imageFile
-	 * @param bool $force
-	 * @return array|mixed
 	 * @throws Exception
 	 */
-	public function convert(File $imageFile, bool $force = false)
+	public function convert(File $imageFile, bool $force = false): WebPInformation
 	{
 		$image = new Image($imageFile);
 
@@ -32,7 +30,7 @@ class WebPConversion
 			$image->setQuality($this->quality);
 		}
 
-		if ($this->imageConverter->convertedImageExists($image) && $force) {
+		if ($force && $this->imageConverter->convertedImageExists($image)) {
 			return $this->imageConverter->convert($image, true);
 		}
 		return $this->imageConverter->convert($image);
