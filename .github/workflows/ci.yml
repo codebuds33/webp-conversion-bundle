@@ -27,7 +27,7 @@ jobs:
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
-          version: 9.5.0
+          version: 9.5.10
           php_version: 8.0
           php_extensions: xdebug gd
           bootstrap: vendor/autoload.php
