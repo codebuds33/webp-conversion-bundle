@@ -85,7 +85,7 @@ final class Test extends KernelTestCase
         $image = (new Image($file))
             ->setConvertedFilename($convertedFileName)
             ->setConvertedPath($path);
-        $this->imageConverterService->convert($image, true);
+        $this->imageConverterService->convert($image, force: true);
         $this->assertFileExists($path . $convertedFileName . '.webp');
 
         $this->assertTrue($this->imageConverterService->convertedImageExists($image));
@@ -96,16 +96,16 @@ final class Test extends KernelTestCase
     public function testTwigExtension(): void
     {
         $filePath = '/test.png';
-        $this->webPConversionExtension->setWebpExtension($filePath, 'Data');
+        $this->webPConversionExtension->setWebpExtension($filePath, publicDirectory: 'Data');
         $this->assertFileExists(__DIR__ . '/Data/test.png');
         $this->deleteGeneratedFile('test.webp');
 
         $this->expectException(FileNotFoundException::class);
         $filePath = '/non-existing.png';
-        $this->webPConversionExtension->setWebpExtension($filePath, false);
+        $this->webPConversionExtension->setWebpExtension($filePath, returnEmptyOnException: false);
 
         $filePath = '/non-existing.png';
-        $response = $this->webPConversionExtension->setWebpExtension($filePath, true);
+        $response = $this->webPConversionExtension->setWebpExtension($filePath, returnEmptyOnException: true);
 
         $this->assertSame('', $response);
     }

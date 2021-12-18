@@ -18,15 +18,8 @@ class WebPConversionCommand extends Command
 {
 	protected static $defaultName = 'codebuds:webp:convert';
 
-	private int $quality;
-
-	private string $projectDir;
-
-	public function __construct(int $quality, string $projectDir)
+	public function __construct(private int $quality, private string $projectDir)
 	{
-		$this->quality = $quality;
-		$this->projectDir = $projectDir;
-
 		parent::__construct();
 	}
 
@@ -47,7 +40,7 @@ class WebPConversionCommand extends Command
 		$directories = $input->getArgument('directories');
 
 		if (!$directories) {
-			$io->error(sprintf('no directories passed'));
+			$io->error('no directories passed');
 
 			return 1;
 		}
@@ -92,15 +85,11 @@ class WebPConversionCommand extends Command
 		}
 
 		$event = $stopwatch->stop('WebP_transforms');
-		$io->text("Time : " . (string)$event);
+		$io->text("Time : " . $event);
 
 		return 0;
 	}
 
-	/**
-	 * @param string $fullPath
-	 * @return array
-	 */
 	private function scanDirs(string $fullPath): array
 	{
 		$finder = new Finder();
