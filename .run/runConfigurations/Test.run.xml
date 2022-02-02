@@ -2,7 +2,7 @@
   <configuration default="false" name="PHPUnit" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <CommandLine>
       <PhpTestInterpreterSettings>
-        <option name="interpreterName" value="php" />
+        <option name="interpreterName" value="php8" />
       </PhpTestInterpreterSettings>
       <envs>
         <env name="XDEBUG_MODE" value="coverage,debug" />
