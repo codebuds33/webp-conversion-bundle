@@ -21,7 +21,7 @@
     "symfony/mime": "^5.0 || ^6.0",
     "symfony/validator": "^5.0 || ^6.0",
     "symfony/orm-pack": "^2.1",
-    "twig/twig": "^2.0"
+    "twig/twig": "^2.0 || ^3.0"
   },
   "require-dev": {
 		"roave/security-advisories": "dev-latest",
