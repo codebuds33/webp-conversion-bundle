@@ -104,7 +104,6 @@ final class Test extends KernelTestCase
         $filePath = '/non-existing.png';
         $this->webPConversionExtension->setWebpExtension($filePath, returnEmptyOnException: false);
 
-        $filePath = '/non-existing.png';
         $response = $this->webPConversionExtension->setWebpExtension($filePath, returnEmptyOnException: true);
 
         $this->assertSame('', $response);

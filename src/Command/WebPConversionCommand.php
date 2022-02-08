@@ -12,11 +12,19 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Mime\FileinfoMimeTypeGuesser;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 class WebPConversionCommand extends Command
 {
 	protected static $defaultName = 'codebuds:webp:convert';
+
+	protected const CONVERTABLE_MIME_TYPES = [
+		'image/jpg',
+		'image/bmp',
+		'image/png',
+		'image/gif',
+	];
 
 	public function __construct(private int $quality, private string $projectDir)
 	{
@@ -95,8 +103,13 @@ class WebPConversionCommand extends Command
 		$finder = new Finder();
 		$elements = [];
 		$finder->files()->in($fullPath);
+		$mimeTypeFinder = new FileinfoMimeTypeGuesser();
 		if ($finder->hasResults()) {
 			foreach ($finder as $file) {
+				$type = $mimeTypeFinder->guessMimeType($file->getPathname());
+				if (!in_array($type, self::CONVERTABLE_MIME_TYPES, true)){
+					continue;
+				}
 				$elements[] = [
 					"name" => $file->getFilenameWithoutExtension(),
 					"extension" => $file->getExtension(),
