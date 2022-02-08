@@ -47,7 +47,7 @@ final class Test extends KernelTestCase
         ]);
         // the output of the command in the console
         $output = $this->commandTester->getDisplay();
-        $this->assertStringContainsString('1 images found, add --create to start webP generation', $output);
+        $this->assertStringContainsString('4 images found, add --create to start webP generation', $output);
 
         $this->commandTester->execute([
             'directories' => ['Data'],
@@ -55,9 +55,9 @@ final class Test extends KernelTestCase
         ]);
         // the output of the command in the console
         $output = $this->commandTester->getDisplay();
-        $this->assertStringContainsString('1/1 [============================] 100%', $output);
+        $this->assertStringContainsString('4/4 [============================] 100%', $output);
 
-        $this->deleteGeneratedFile();
+        $this->deleteGeneratedFiles();
 
         $this->commandTester->execute([
             'directories' => ['Data'],
@@ -65,22 +65,27 @@ final class Test extends KernelTestCase
             '--suffix' => '_suffix'
         ]);
 
-        $this->assertFileExists(__DIR__ . '/Data/test_suffix.webp');
-        $this->deleteGeneratedFile('test_suffix.webp');
+        $this->assertFileExists(__DIR__ . '/Data/png_suffix.webp');
+        $this->deleteGeneratedFiles('suffix');
     }
 
-    private function deleteGeneratedFile(string $filename = 'test.webp'): void
+    private function deleteGeneratedFiles(?string $fileSuffix = null): void
     {
-        $path = __DIR__ . '/Data/' . $filename;
-        if (file_exists($path)) {
-            unlink($path);
-        }
+		$files = ['png', 'jpg', 'jpeg', 'gif'];
+		foreach ($files as $file) {
+			$filename = $fileSuffix ? $file . '_' . $fileSuffix : $file;
+			$filename .= '.webp';
+			$path = __DIR__ . '/Data/' . $filename;
+			if (file_exists($path)) {
+				unlink($path);
+			}
+		}
     }
 
     public function testService(): void
     {
-        $file = new UploadedFile(__DIR__ . '/Data/test.png', 'image/png', UPLOAD_ERR_OK, true);
-        $convertedFileName = 'test_covert';
+        $file = new UploadedFile(__DIR__ . '/Data/png.png', 'image/png', UPLOAD_ERR_OK, true);
+        $convertedFileName = 'png_convert';
         $path = __DIR__ . '/Data/';
         $image = (new Image($file))
             ->setConvertedFilename($convertedFileName)
@@ -90,15 +95,15 @@ final class Test extends KernelTestCase
 
         $this->assertTrue($this->imageConverterService->convertedImageExists($image));
 
-        $this->deleteGeneratedFile('test_covert.webp');
+        $this->deleteGeneratedFiles('convert');
     }
 
     public function testTwigExtension(): void
     {
-        $filePath = '/test.png';
+        $filePath = '/png.png';
         $this->webPConversionExtension->setWebpExtension($filePath, publicDirectory: 'Data');
-        $this->assertFileExists(__DIR__ . '/Data/test.png');
-        $this->deleteGeneratedFile('test.webp');
+        $this->assertFileExists(__DIR__ . '/Data/png.png');
+        $this->deleteGeneratedFiles();
 
         $this->expectException(FileNotFoundException::class);
         $filePath = '/non-existing.png';

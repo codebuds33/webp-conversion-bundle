@@ -21,7 +21,7 @@ class WebPConversionCommand extends Command
 
 	protected const CONVERTABLE_MIME_TYPES = [
 		'image/jpg',
-		'image/bmp',
+		'image/jpeg',
 		'image/png',
 		'image/gif',
 	];
