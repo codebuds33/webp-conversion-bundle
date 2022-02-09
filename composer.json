@@ -22,12 +22,12 @@
     "symfony/validator": "^5.0 || ^6.0",
     "symfony/orm-pack": "^2.1",
     "twig/twig": "^2.0 || ^3.0",
-		"ext-fileinfo": "*"
-	},
+    "ext-fileinfo": "*"
+  },
   "require-dev": {
-		"roave/security-advisories": "dev-latest",
-		"symfony/framework-bundle": "^5.0 || ^6.0",
-		"symfony/phpunit-bridge": "^5.0 || ^6.0"
+    "roave/security-advisories": "dev-latest",
+    "symfony/framework-bundle": "^5.0 || ^6.0",
+    "symfony/phpunit-bridge": "^5.0 || ^6.0"
   },
   "autoload": {
     "psr-4": {
