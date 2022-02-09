@@ -17,106 +17,105 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 class WebPConversionCommand extends Command
 {
-	protected static $defaultName = 'codebuds:webp:convert';
+    protected static $defaultName = 'codebuds:webp:convert';
 
-	protected const CONVERTABLE_MIME_TYPES = [
-		'image/jpg',
-		'image/jpeg',
-		'image/png',
-		'image/gif',
-	];
+    protected const CONVERTABLE_MIME_TYPES = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+    ];
 
-	public function __construct(private int $quality, private string $projectDir)
-	{
-		parent::__construct();
-	}
+    public function __construct(private int $quality, private string $projectDir)
+    {
+        parent::__construct();
+    }
 
-	protected function configure(): void
-	{
-		$this
-			->setDescription('Generate webps in directories')
-			->addArgument('directories', InputArgument::IS_ARRAY, 'Directories for webP generation')
-			->addOption('create', null, InputOption::VALUE_NONE, 'Generate new files')
-			->addOption('force', null, InputOption::VALUE_NONE, 'Recreate all the files')
-			->addOption('quality', null, InputOption::VALUE_OPTIONAL, 'Set webp generation quality', $this->quality)
-			->addOption('suffix', null, InputOption::VALUE_OPTIONAL, 'Add a filename suffix', '');
-	}
+    protected function configure(): void
+    {
+        $this
+            ->setDescription('Generate webps in directories')
+            ->addArgument('directories', InputArgument::IS_ARRAY, 'Directories for webP generation')
+            ->addOption('create', null, InputOption::VALUE_NONE, 'Generate new files')
+            ->addOption('force', null, InputOption::VALUE_NONE, 'Recreate all the files')
+            ->addOption('quality', null, InputOption::VALUE_OPTIONAL, 'Set webp generation quality', $this->quality)
+            ->addOption('suffix', null, InputOption::VALUE_OPTIONAL, 'Add a filename suffix', '');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output): int
-	{
-		$io = new SymfonyStyle($input, $output);
-		$directories = $input->getArgument('directories');
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $io = new SymfonyStyle($input, $output);
+        $directories = $input->getArgument('directories');
 
-		if (!$directories) {
-			$io->error('no directories passed');
+        if (!$directories) {
+            $io->error('no directories passed');
 
-			return 1;
-		}
+            return 1;
+        }
 
-		$stopwatch = new Stopwatch();
+        $stopwatch = new Stopwatch();
 
-		$stopwatch->start('WebP_transforms');
+        $stopwatch->start('WebP_transforms');
 
-		$images = [];
+        $images = [];
 
-		array_walk($directories, function ($directory) use (&$images) {
-			$fullPath = $directory[0] === '/' ?: "{$this->projectDir}/{$directory}";
-			$images = $this->scanDirs($fullPath);
-		});
+        array_walk($directories, function ($directory) use (&$images) {
+            $fullPath = $directory[0] === '/' ?: "{$this->projectDir}/{$directory}";
+            $images = $this->scanDirs($fullPath);
+        });
 
-		if ($input->getOption('create')) {
-			$progressBar = new ProgressBar($output, count($images));
-			$progressBar->start();
+        if ($input->getOption('create')) {
+            $progressBar = new ProgressBar($output, count($images));
+            $progressBar->start();
 
-			$errors = [];
-			array_walk($images, static function ($image) use ($progressBar, &$errors, $input) {
-				$progressBar->advance();
-				try {
-					$options = [
-						'quality' => (int)$input->getOption('quality'),
-						'force' => $input->getOption('force'),
-						'saveFile' => $input->getOption('create'),
-						'filenameSuffix' => $input->getOption('suffix'),
-					];
-					WebPConverter::createWebPImage($image["path"], $options);
-				} catch (Exception $exception) {
-					$errors[] = $exception->getMessage();
-				}
-			});
-			$progressBar->finish();
+            $errors = [];
+            array_walk($images, static function ($image) use ($progressBar, &$errors, $input) {
+                $progressBar->advance();
+                try {
+                    $options = [
+                        'quality' => (int)$input->getOption('quality'),
+                        'force' => $input->getOption('force'),
+                        'saveFile' => $input->getOption('create'),
+                        'filenameSuffix' => $input->getOption('suffix'),
+                    ];
+                    WebPConverter::createWebPImage($image["path"], $options);
+                } catch (Exception $exception) {
+                    $errors[] = $exception->getMessage();
+                }
+            });
+            $progressBar->finish();
 
-			if ($errors) {
-				$io->error($errors);
-			}
-		} else {
-			$io->text(count($images) . " images found, add --create to start webP generation");
-		}
+            if ($errors) {
+                $io->error($errors);
+            }
+        } else {
+            $io->text(count($images) . " images found, add --create to start webP generation");
+        }
 
-		$event = $stopwatch->stop('WebP_transforms');
-		$io->text("Time : " . $event);
+        $event = $stopwatch->stop('WebP_transforms');
+        $io->text("Time : " . $event);
 
-		return 0;
-	}
+        return 0;
+    }
 
-	private function scanDirs(string $fullPath): array
-	{
-		$finder = new Finder();
-		$elements = [];
-		$finder->files()->in($fullPath);
-		$mimeTypeFinder = new FileinfoMimeTypeGuesser();
-		if ($finder->hasResults()) {
-			foreach ($finder as $file) {
-				$type = $mimeTypeFinder->guessMimeType($file->getPathname());
-				if (!in_array($type, self::CONVERTABLE_MIME_TYPES, true)){
-					continue;
-				}
-				$elements[] = [
-					"name" => $file->getFilenameWithoutExtension(),
-					"extension" => $file->getExtension(),
-					"path" => $file
-				];
-			}
-		}
-		return $elements;
-	}
+    private function scanDirs(string $fullPath): array
+    {
+        $finder = new Finder();
+        $elements = [];
+        $finder->files()->in($fullPath);
+        $mimeTypeFinder = new FileinfoMimeTypeGuesser();
+        if ($finder->hasResults()) {
+            foreach ($finder as $file) {
+                $type = $mimeTypeFinder->guessMimeType($file->getPathname());
+                if (!in_array($type, self::CONVERTABLE_MIME_TYPES, true)) {
+                    continue;
+                }
+                $elements[] = [
+                    "name" => $file->getFilenameWithoutExtension(),
+                    "extension" => $file->getExtension(),
+                    "path" => $file
+                ];
+            }
+        }
+        return $elements;
+    }
 }
