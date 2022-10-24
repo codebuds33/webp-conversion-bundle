@@ -115,7 +115,7 @@ RUN grep -q '^opcache.validate_timestamps=0' /usr/local/etc/php/conf.d/opcache.i
     || echo 'opcache.validate_timestamps=1' >> /usr/local/etc/php/conf.d/opcache.ini
 
 #Install Symfony CLI
-RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
 RUN chown -R 1000 /srv/app \
     && chown -R 1000 /opt
