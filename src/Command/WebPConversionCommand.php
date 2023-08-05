@@ -4,6 +4,7 @@ namespace CodeBuds\WebPConversionBundle\Command;
 
 use CodeBuds\WebPConverter\WebPConverter;
 use Exception;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,7 +16,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Mime\FileinfoMimeTypeGuesser;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-#[\Symfony\Component\Console\Attribute\AsCommand('codebuds:webp:convert')]
+#[AsCommand('codebuds:webp:convert')]
 class WebPConversionCommand extends Command
 {
     protected const CONVERTABLE_MIME_TYPES = [
@@ -24,7 +25,10 @@ class WebPConversionCommand extends Command
         'image/gif',
     ];
 
-    public function __construct(private readonly int $quality, private readonly string $projectDir)
+    public function __construct(
+        private readonly int $quality,
+        private readonly string $projectDir,
+    )
     {
         parent::__construct();
     }
