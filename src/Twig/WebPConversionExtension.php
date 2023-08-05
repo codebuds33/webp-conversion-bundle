@@ -2,7 +2,6 @@
 
 namespace CodeBuds\WebPConversionBundle\Twig;
 
-
 use CodeBuds\WebPConverter\WebPConverter;
 use Exception;
 use Twig\Extension\AbstractExtension;
@@ -10,21 +9,17 @@ use Twig\TwigFilter;
 
 class WebPConversionExtension extends AbstractExtension
 {
-
-    private int $quality;
-
-    private string $projectDir;
-
-    public function __construct(int $quality, string $projectDir)
+    public function __construct(
+        private readonly int $quality,
+        private readonly string $projectDir,
+    )
     {
-        $this->quality = $quality;
-        $this->projectDir = $projectDir;
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('cb_webp', [$this, 'setWebpExtension']),
+            new TwigFilter('cb_webp', $this->setWebpExtension(...)),
         ];
     }
 

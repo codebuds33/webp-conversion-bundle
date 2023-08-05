@@ -1,0 +1,39 @@
+services:
+    # Command
+    CodeBuds\WebPConversionBundle\Command\WebPConversionCommand:
+        public: true
+        arguments:
+            - '%webp_conversion.quality%'
+            - '%kernel.project_dir%'
+        tags:
+            - { name: 'console.command', command: 'codebuds:webp:convert', alias: 'webp:conv' }
+
+    # Twig Extension
+    CodeBuds\WebPConversionBundle\Twig\WebPConversionExtension:
+        public: true
+        arguments:
+            - '%webp_conversion.quality%'
+            - '%kernel.project_dir%'
+        tags:
+            - { name: 'twig.extension', alias: 'codebuds' }
+
+    # Bundle Extension
+    CodeBuds\WebPConversionBundle\WebPConversion:
+        public: true
+        arguments:
+            - '%webp_conversion.quality%'
+            - 'CodeBuds\WebPConversionBundle\Service\ImageConverter'
+
+    # Services
+    CodeBuds\WebPConversionBundle\Service\ImageConverter:
+        public: true
+
+    CodeBuds\WebPConversionBundle\Service\ImageUploadHelper:
+        public: true
+        arguments:
+            - '%webp_conversion.upload_path%'
+            - '%kernel.project_dir%'
+
+    # Traits
+    CodeBuds\WebPConversionBundle\Traits\ConvertibleImageTrait:
+        public: true

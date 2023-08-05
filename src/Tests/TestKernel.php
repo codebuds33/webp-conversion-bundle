@@ -8,16 +8,15 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class TestKernel extends Kernel
 {
+    public function registerBundles(): iterable
+    {
+        return [
+            new WebPConversionBundle()
+        ];
+    }
 
-	public function registerBundles(): iterable
-	{
-		return [
-			new WebPConversionBundle()
-		];
-	}
-
-	public function registerContainerConfiguration(LoaderInterface $loader)
-	{
-		// TODO: Implement registerContainerConfiguration() method.
-	}
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        // TODO: Implement registerContainerConfiguration() method.
+    }
 }
