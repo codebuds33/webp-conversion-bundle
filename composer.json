@@ -11,6 +11,7 @@
   ],
   "require": {
     "php": "^8.1",
+    "ext-fileinfo": "*",
     "codebuds/webp-converter": "dev-develop",
     "symfony/console": "^6.1",
     "symfony/stopwatch": "^6.1",
@@ -19,10 +20,10 @@
     "symfony/routing": "^6.1",
     "doctrine/annotations": "^2.0",
     "symfony/mime": "^6.1",
+    "symfony/yaml": "^6.1",
     "symfony/validator": "^6.1",
     "symfony/orm-pack": "^2.1",
-    "twig/twig": "^2.0 || ^3.0",
-    "ext-fileinfo": "*"
+    "twig/twig": "^2.0 || ^3.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
