@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class WebPConversion
 {
-
-    public function __construct(private int $quality, private ImageConverter $imageConverter)
+    public function __construct(private readonly int $quality, private readonly ImageConverter $imageConverter)
     {
     }
 

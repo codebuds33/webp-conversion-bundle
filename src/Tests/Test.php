@@ -71,15 +71,15 @@ final class Test extends KernelTestCase
 
     private function deleteGeneratedFiles(?string $fileSuffix = null): void
     {
-		$files = ['png', 'jpg', 'jpeg', 'gif'];
-		foreach ($files as $file) {
-			$filename = $fileSuffix ? $file . '_' . $fileSuffix : $file;
-			$filename .= '.webp';
-			$path = __DIR__ . '/Data/' . $filename;
-			if (file_exists($path)) {
-				unlink($path);
-			}
-		}
+        $files = ['png', 'jpg', 'jpeg', 'gif'];
+        foreach ($files as $file) {
+            $filename = $fileSuffix ? $file . '_' . $fileSuffix : $file;
+            $filename .= '.webp';
+            $path = __DIR__ . '/Data/' . $filename;
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
     }
 
     public function testService(): void

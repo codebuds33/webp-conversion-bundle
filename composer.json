@@ -10,28 +10,46 @@
     }
   ],
   "require": {
-    "php": "^8.0",
-    "codebuds/webp-converter": "^0.5.1",
-    "symfony/console": "^5.0 || ^6.0",
-    "symfony/stopwatch": "^5.0 || ^6.0",
-    "symfony/finder": "^5.0 || ^6.0",
-    "symfony/http-foundation": "^5.0 || ^6.0",
-    "symfony/routing": "^5.0 || ^6.0",
+    "php": "^8.1",
+    "codebuds/webp-converter": "^0.6.0",
+    "symfony/console": "^6.1",
+    "symfony/stopwatch": "^6.1",
+    "symfony/finder": "^6.1",
+    "symfony/http-foundation": "^6.1",
+    "symfony/routing": "^6.1",
     "doctrine/annotations": "^1.13",
-    "symfony/mime": "^5.0 || ^6.0",
-    "symfony/validator": "^5.0 || ^6.0",
+    "symfony/mime": "^6.1",
+    "symfony/validator": "^6.1",
     "symfony/orm-pack": "^2.1",
     "twig/twig": "^2.0 || ^3.0",
     "ext-fileinfo": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "symfony/framework-bundle": "^5.0 || ^6.0",
-    "symfony/phpunit-bridge": "^5.0 || ^6.0"
+    "symfony/framework-bundle": "^6.1",
+    "rector/rector": "^0.15.21",
+    "symfony/phpunit-bridge": "^6.1"
   },
   "autoload": {
     "psr-4": {
       "CodeBuds\\WebPConversionBundle\\": "src/"
     }
+  },
+  "scripts": {
+    "cs-fix": [
+      "php-cs-fixer fix --config=.php-cs-fixer.dist.php"
+    ],
+    "rector": [
+      "./vendor/bin/rector"
+    ],
+    "clean": [
+      "composer rector && composer cs-fix"
+    ],
+    "test": [
+      "php -dxdebug.mode=debug ./vendor/bin/simple-phpunit --configuration ./phpunit.xml.dist "
+    ],
+    "coverage": [
+      "export XDEBUG_MODE=coverage && php ./vendor/bin/simple-phpunit --configuration ./phpunit.xml.dist --coverage-text"
+    ]
   }
 }

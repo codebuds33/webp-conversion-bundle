@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CodeBuds\WebPConversionBundle\Traits;
 
 use CodeBuds\WebPConversionBundle\Model\Image;
@@ -27,12 +26,12 @@ trait ConvertibleImageTrait
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $convertedPath;
+    private ?string $convertedPath = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $convertedFilename;
+    private ?string $convertedFilename = null;
 
     /**
      * @var string|null
@@ -43,33 +42,29 @@ trait ConvertibleImageTrait
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $originalPath;
+    private ?string $originalPath = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $originalFilename;
+    private ?string $originalFilename = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $originalExtension;
+    private ?string $originalExtension = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $originalFileType;
+    private ?string $originalFileType = null;
 
-    /**
-     * @return File
-     */
     public function getImageFile(): File
     {
         return new File($this->getOriginalFullPath());
     }
 
     /**
-     * @param File $imageFile
      * @return ConvertibleImageTrait|Image
      */
     public function setImageFile(File $imageFile): self
