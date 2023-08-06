@@ -12,8 +12,7 @@ class WebPConversionExtension extends AbstractExtension
     public function __construct(
         private readonly int $quality,
         private readonly string $projectDir,
-    )
-    {
+    ) {
     }
 
     public function getFilters(): array

@@ -28,8 +28,7 @@ class WebPConversionCommand extends Command
     public function __construct(
         private readonly int $quality,
         private readonly string $projectDir,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
