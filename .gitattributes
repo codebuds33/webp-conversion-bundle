@@ -22,8 +22,9 @@
 /mocked-functions.php export-ignore
 /test_files/ export-ignore
 /Tests export-ignore
+/src/Tests export-ignore
 /**/*Test.php export-ignore
 /**/*Stub.php export-ignore
 /**/Stub*.php export-ignore
 Dockerfile export-ignore
-Docker-compose.yaml export-ignore
+socker-compose.yaml export-ignore
