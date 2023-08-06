@@ -1,51 +1,92 @@
-![Code Coverage Badge](./plugin/.coverage/badge.svg) 
-# WebP Conversion Command
+![Code Coverage Badge](./plugin/.coverage/badge.svg)
 
-This bundle is here to make it easy to create webP images in a Symfony project.
+# WebP Conversion Bundle
+
+The WebP Conversion Bundle is a Symfony bundle designed to facilitate the automatic conversion of JPEG, BMP, PNG, and
+GIF images to WebP format. By converting images to WebP, you can significantly reduce file sizes and improve website
+rendering speed. This bundle is compatible with PHP 8.1 and 8.2, as well as Symfony 6.1, 6.2, and 6.3
+
+## Configuration
+
+The WebPConversionBundle allows you to configure various settings to customize the behavior of the image conversion
+process. To do this, follow these steps:
+
+1. **Install the bundle**: If you haven't already installed the **WebPConversionBundle**, add it to your Symfony project
+   by running the following command:
+
+    ```bash
+    composer require codebuds/webp-conversion-bundle
+    ```
+
+2. **Override default configuration**: To customize the bundle's configuration, create a new file named
+   **webp_conversion.yaml** inside the **config/packages** directory of your Symfony project (if it doesn't exist,
+   create it).
+
+3. **Configure the parameters**: In the **webp_conversion.yaml** file, you can set the desired configuration options.
+   For
+   example, to change the default quality and upload path, use the following syntax:
+
+    ```yaml
+    # config/packages/webp_conversion.yaml
+    web_p_conversion:
+    quality: 90
+    upload_path: '/custom/upload/directory'
+   ```
+    - **quality**: The quality parameter sets the quality for the generated WebP images. By default, it is set to 80.
+      You can adjust it to a higher or lower value as per your requirements.
+    - **upload_path**: The upload_path parameter defines the directory where the WebP images will be created. By
+      default, it is set to **/public/images**. You can change it to any other directory that suits your project
+      structure.
 
 ## Command
 
-The bundle contains one command so far. `codebuds:webp:convert`.
+This bundle provides a command, **codebuds:webp:convert**, that simplifies the process of converting images to WebP
+format. The command accepts a directory as an argument, and all images (JPEG, PNG, GIF, and BMP) within that directory
+will be converted to WebP. The command offers several optional parameters to customize the conversion:
 
-This will allow you to pass a directory in which you want all the jpeg, png, gif and bmp images to be converted to webP.
+- **--create**: Use this flag to generate the WebP images. If not provided, the directories will be checked, but the
+  final
+  images will not be created.
+- **--quality**: Set the quality level for the WebP images (80 by default).
+- **--force**: Use this flag to recreate existing WebP images. By default, existing WebP images will not be overwritten.
+- **--suffix**: Add a suffix to the names of the created WebP images.
 
-It has multiple parameters :
-
-- `--create` without this the directories will be checked, but the final images will not be created.
-- `--quality` set the quality for the webp images (80 by default)
-- `--force` recreate existing webP images (false by default)
-- `--suffix` add a suffix to the created webp image names
-
-Example:
+### Example:
 
 ```shell script
 php bin/console codebuds:webp:convert --create --quality=90 --suffix=_q90 public/images
 ```
 
-if the public/images contains image.jpeg, after the command it will contain image_q90.webp.
+If the *public/images* directory contains an image named *test.jpg*, after executing the command, it will also contain
+*test_q90.webp*.
 
 ## Twig extension
 
-The bundle contains a twig extension that will generate the webp image and return the path to it. 
-This helps to easily generate the <picture> elements to optimize the websites rendering speed. 
+The bundle includes a Twig extension that generates WebP images and returns the path to them. This makes it easy to
+create **<picture>** elements to optimize website rendering speed.
+
+### Example
 
 ```html
-<!-- old school approach -->
+<!-- Traditional approach -->
 <img src="/public/images/test.jpg">
 
-<!-- new approach -->
+<!-- Modern approach using WebP -->
 <picture>
-    <source srcset="{{ '/public/images/test.jpg' | cb_webp }}" type="image/webp">
-    <source srcset="/public/images/test.jpg"  type="image/jpeg">
-    <img src="/public/images/test.jpg">
+    <source srcset="{{ '/images/test.jpg' | cb_webp }}" type="image/webp">
+    <source srcset="/images/test.jpg" type="image/jpeg">
+    <img src="/images/test.jpg">
 </picture>
+
 ```
 
-This also works with vich_uploader assets and liip_imagine filters :
+The Twig extension also supports VichUploaderBundle assets and LiipImagineBundle filters:
 
 ```html
+
 <picture>
-    <source srcset="{{ vich_uploader_asset(asset, 'imageFile') | cb_webp | set_webp_extension | imagine_filter(filter) }}" type="image/webp">
+    <source srcset="{{ vich_uploader_asset(asset, 'imageFile') | cb_webp | set_webp_extension | imagine_filter(filter) }}"
+            type="image/webp">
     <source srcset="{{ vich_uploader_asset(asset, 'imageFile') | imagine_filter(filter) }}">
     <img src="{{ vich_uploader_asset(asset, 'imageFile') | imagine_filter(filter) }}">
 </picture>
