@@ -1,9 +1,11 @@
 * text=auto
 
 /.docker export-ignore
+/docker export-ignore
 /config.subsplit-publish.json export-ignore
 /.editorconfig export-ignore
 /.php-cs-fixer.dist.php export-ignore
+/.php-cs-fixer.cache export-ignore
 /phpstan.neon export-ignore
 /phpunit.php export-ignore
 /phpunit.xml.dist export-ignore
