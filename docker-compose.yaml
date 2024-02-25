@@ -7,7 +7,7 @@ services:
       context: .
       target: php_dev
       args:
-        PHP_VERSION: '8.0'
+        PHP_VERSION: '8.3'
     user: 1000:1500
     networks:
       - internal

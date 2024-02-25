@@ -9,10 +9,10 @@ jobs:
         runs-on: ubuntu-latest
         name: Generate Coverage Badge
         steps:
-            -   uses: actions/checkout@v3
+            -   uses: actions/checkout@v4
 
             -   name: Cache Composer dependencies
-                uses: actions/cache@v3
+                uses: actions/cache@v4
                 with:
                     path: /tmp/composer-cache
                     key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
@@ -20,14 +20,14 @@ jobs:
             -   name: composer
                 uses: php-actions/composer@v6
                 with:
-                    php_version: 8.2
+                    php_version: 8.3
                     php_extensions: xdebug gd
 
             -   name: PHPUnit Tests
                 uses: php-actions/phpunit@v3
                 with:
                     version: 10.2
-                    php_version: 8.2
+                    php_version: 8.3
                     php_extensions: xdebug gd
                     bootstrap: vendor/autoload.php
                     configuration: phpunit.xml.dist
